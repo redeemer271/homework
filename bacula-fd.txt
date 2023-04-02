@@ -1,0 +1,28 @@
+Director {
+  Name = deb1-dir
+  Password = "YpLL3MBA7KGZM9ps5IPNsN6adw0-k8Cw8"
+}
+
+Director {
+  Name = deb1-mon
+  Password = "4ZkHmVQol6nFknLUbbz_8eIj2DLeJZe1D"
+  Monitor = yes
+}
+
+FileDaemon {                          # this is me
+  Name = deb1-fd
+  FDport = 9102                  # where we listen for the director
+  WorkingDirectory = /var/lib/bacula
+  Pid Directory = /run/bacula
+  Maximum Concurrent Jobs = 20
+  Plugin Directory = /usr/lib/bacula
+  FDAddress = 127.0.0.1
+}
+
+# Send all messages except skipped files back to Director
+Messages {
+  Name = Standard
+  director = deb1-dir = all, !skipped, !restored
+}
+
+
